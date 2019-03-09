@@ -1,4 +1,4 @@
-const letters = document.getElementById('qwerty');
+const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 let missed = 0;
 let start= document.querySelector('a');
@@ -29,15 +29,39 @@ const addPhraseToDisplay= arr =>{
 const phraseArray = getRandomPhraseAsArray(phrases);
 addPhraseToDisplay(phraseArray);
 
-
-const elementsArray = document.querySelectorAll("button");
-
- checkLetter.forEach(function(elem) {
-    elem.addEventListener('click', (e)=> {
-      const letters = document.getElementsByClassName('letter');
-      if (e.innerHTML == leters[i]){
-        e.
-      }
-                   //this function does stuff
-               });
-           })
+function checkLetter(elem) {
+  const letters = document.querySelectorAll('.letter');
+  let letterFound = null;
+  letters.forEach(letter => {
+    if (elem === letter.textContent){
+      letterFound = true;
+      letter.classList.add("show");
+    }
+  });
+  return letterFound;
+}
+function checkWin(elem){
+  let letter = document.querySelectorAll('.letter').length;
+  let show = document.querySelectorAll('.show').length;
+  let overlay =document.getElementById("overlay");
+  if (show === letter){
+    overlay.className ="win";
+  }
+  else if (missed === 5){
+    overlay.className="lose";
+  }
+};
+qwerty.addEventListener('click',(event)=> {
+  let target = event.target;
+  const button = target.textContent;
+    if(target.type ==="submit"){
+      target.classList.add("chosen");
+      target.setAttribute('disabled','');
+  const letterFound = checkLetter(button);
+  checkLetter(button);
+  if (letterFound == null){
+    missed +=1;
+      };
+    }
+  checkWin();
+ });
